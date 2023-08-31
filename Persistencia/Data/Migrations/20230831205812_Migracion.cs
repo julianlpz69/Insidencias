@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistencia.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class PrimeraMigracion : Migration
+    public partial class Migracion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,22 @@ namespace Persistencia.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_pais", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "salon",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NombreSalon = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Capacidad = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_salon", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -161,28 +177,12 @@ namespace Persistencia.Data.Migrations
                         principalTable: "persona",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "salon",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NombreSalon = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Capacidad = table.Column<int>(type: "int", nullable: false),
-                    MatriculaId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_salon", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_salon_matricula_MatriculaId",
-                        column: x => x.MatriculaId,
-                        principalTable: "matricula",
-                        principalColumn: "Id");
+                        name: "FK_matricula_salon_IdSalonFk",
+                        column: x => x.IdSalonFk,
+                        principalTable: "salon",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -250,47 +250,22 @@ namespace Persistencia.Data.Migrations
                 name: "IX_PersonasSalones_IdSalonFk",
                 table: "PersonasSalones",
                 column: "IdSalonFk");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_salon_MatriculaId",
-                table: "salon",
-                column: "MatriculaId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_matricula_salon_IdSalonFk",
-                table: "matricula",
-                column: "IdSalonFk",
-                principalTable: "salon",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ciudad_departamento_IdDepartamentoFK",
-                table: "ciudad");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_matricula_persona_IdPersonaFK",
-                table: "matricula");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_matricula_salon_IdSalonFk",
-                table: "matricula");
+            migrationBuilder.DropTable(
+                name: "matricula");
 
             migrationBuilder.DropTable(
                 name: "PersonasSalones");
 
             migrationBuilder.DropTable(
-                name: "departamento");
-
-            migrationBuilder.DropTable(
-                name: "pais");
-
-            migrationBuilder.DropTable(
                 name: "persona");
+
+            migrationBuilder.DropTable(
+                name: "salon");
 
             migrationBuilder.DropTable(
                 name: "ciudad");
@@ -302,10 +277,10 @@ namespace Persistencia.Data.Migrations
                 name: "tipoPersona");
 
             migrationBuilder.DropTable(
-                name: "salon");
+                name: "departamento");
 
             migrationBuilder.DropTable(
-                name: "matricula");
+                name: "pais");
         }
     }
 }
