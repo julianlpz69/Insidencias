@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistencia.Data
 {
-    public class InsidenciasContext : DbContext
+    public class IncidenciasContext : DbContext
     {
-        public InsidenciasContext(DbContextOptions<InsidenciasContext> options) : base(options)
+        public IncidenciasContext(DbContextOptions<IncidenciasContext> options) : base(options)
         {
             
         }

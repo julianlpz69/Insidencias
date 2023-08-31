@@ -11,6 +11,5 @@ namespace Dominio.Entities
         public Persona Persona {get; set;}
         public int IdSalonFk {get; set;}
         public Salon Salon {get; set;}
-        public ICollection<Salon> Salones { get; set; }
     }
 }

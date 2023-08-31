@@ -13,3 +13,18 @@ C:\Users\APT01-51\Desktop\CshartRepos\Insidencias\Persistencia\obj\Debug\net7.0\
 C:\Users\APT01-51\Desktop\CshartRepos\Insidencias\Persistencia\obj\Debug\net7.0\refint\Persistencia.dll
 C:\Users\APT01-51\Desktop\CshartRepos\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.pdb
 C:\Users\APT01-51\Desktop\CshartRepos\Insidencias\Persistencia\obj\Debug\net7.0\ref\Persistencia.dll
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\bin\Debug\net7.0\Persistencia.deps.json
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\bin\Debug\net7.0\Persistencia.dll
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\bin\Debug\net7.0\Persistencia.pdb
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\bin\Debug\net7.0\Dominio.dll
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\bin\Debug\net7.0\Dominio.pdb
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.csproj.AssemblyReference.cache
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.AssemblyInfoInputs.cache
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.AssemblyInfo.cs
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.csproj.CoreCompileInputs.cache
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.csproj.CopyComplete
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.dll
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\refint\Persistencia.dll
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\Persistencia.pdb
+C:\Users\julia\OneDrive\Escritorio\⠀   ⠀   ⠀    ⠀   ⠀   ⠀   ⠀\Insidencias\Persistencia\obj\Debug\net7.0\ref\Persistencia.dll
