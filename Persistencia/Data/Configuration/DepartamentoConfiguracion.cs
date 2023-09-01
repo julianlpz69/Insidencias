@@ -12,7 +12,11 @@ namespace Persistencia.Data.Configuration
 
             builder.Property(e => e.NombreDepartamento)
                 .HasMaxLength(30);
-        
+
+            builder.HasOne(p => p.Pais)
+            .WithMany(p => p.Departamentos)
+            .HasForeignKey(p => p.IdPaisFk);
+
         }
     }
 }

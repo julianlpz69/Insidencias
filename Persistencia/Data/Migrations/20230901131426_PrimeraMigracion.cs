@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistencia.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Migracion : Migration
+    public partial class PrimeraMigracion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -133,17 +133,17 @@ namespace Persistencia.Data.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IdTipoPersonaFk = table.Column<int>(type: "int", nullable: false),
                     IdCiudadFK = table.Column<int>(type: "int", nullable: false),
-                    CiudadId = table.Column<int>(type: "int", nullable: true),
                     IdTipoGeneroFK = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_persona", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_persona_ciudad_CiudadId",
-                        column: x => x.CiudadId,
+                        name: "FK_persona_ciudad_IdCiudadFK",
+                        column: x => x.IdCiudadFK,
                         principalTable: "ciudad",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_persona_tipoGenero_IdTipoGeneroFK",
                         column: x => x.IdTipoGeneroFK,
@@ -187,7 +187,7 @@ namespace Persistencia.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "PersonasSalones",
+                name: "personaSalon",
                 columns: table => new
                 {
                     IdPersonaFK = table.Column<int>(type: "int", nullable: false),
@@ -195,15 +195,15 @@ namespace Persistencia.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonasSalones", x => new { x.IdPersonaFK, x.IdSalonFk });
+                    table.PrimaryKey("PK_personaSalon", x => new { x.IdPersonaFK, x.IdSalonFk });
                     table.ForeignKey(
-                        name: "FK_PersonasSalones_persona_IdPersonaFK",
+                        name: "FK_personaSalon_persona_IdPersonaFK",
                         column: x => x.IdPersonaFK,
                         principalTable: "persona",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PersonasSalones_salon_IdSalonFk",
+                        name: "FK_personaSalon_salon_IdSalonFk",
                         column: x => x.IdSalonFk,
                         principalTable: "salon",
                         principalColumn: "Id",
@@ -232,9 +232,9 @@ namespace Persistencia.Data.Migrations
                 column: "IdSalonFk");
 
             migrationBuilder.CreateIndex(
-                name: "IX_persona_CiudadId",
+                name: "IX_persona_IdCiudadFK",
                 table: "persona",
-                column: "CiudadId");
+                column: "IdCiudadFK");
 
             migrationBuilder.CreateIndex(
                 name: "IX_persona_IdTipoGeneroFK",
@@ -247,8 +247,8 @@ namespace Persistencia.Data.Migrations
                 column: "IdTipoPersonaFk");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonasSalones_IdSalonFk",
-                table: "PersonasSalones",
+                name: "IX_personaSalon_IdSalonFk",
+                table: "personaSalon",
                 column: "IdSalonFk");
         }
 
@@ -259,7 +259,7 @@ namespace Persistencia.Data.Migrations
                 name: "matricula");
 
             migrationBuilder.DropTable(
-                name: "PersonasSalones");
+                name: "personaSalon");
 
             migrationBuilder.DropTable(
                 name: "persona");

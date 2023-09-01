@@ -12,6 +12,13 @@ namespace Persistencia.Data.Configuration
 
             builder.Property(e => e.NombreCiudad)
                 .HasMaxLength(30);
+
+
+
+            
+            builder.HasOne(p => p.Departamento)
+            .WithMany(p => p.Ciudades)
+            .HasForeignKey(p => p.IdDepartamentoFK);
         
         }
     }

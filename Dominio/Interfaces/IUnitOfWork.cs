@@ -8,5 +8,8 @@ namespace Dominio.Intefaces
     public interface IUnitOfWork
     {
         
+        IPersona Personas {get; }
+
+         Task<int> SaveAsync();
     }
-}
+    }

@@ -1,32 +1,101 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using API.Dtos;
+using AutoMapper;
+using Dominio.Entities;
+using Dominio.Intefaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
-    [Route("[controller]")]
-    public class PersonaController : Controller
+    public class PersonaController : BaseApiController
     {
-        private readonly ILogger<PersonaController> _logger;
+        private IUnitOfWork unitofwork;
+        private readonly IMapper mapper;
 
-        public PersonaController(ILogger<PersonaController> logger)
+        public PersonaController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _logger = logger;
+            this.unitofwork = unitOfWork;
+            this.mapper = mapper;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        //[MapToApiVersion("1.1")]//
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<PersonaDto>>> Get()
         {
-            return View();
+            var personas = await unitofwork.Personas.GetAllAsync();
+            return Ok(personas);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<PersonaDto>> Get(int id)
         {
-            return View("Error!");
+            var cliente = await unitofwork.Personas.GetByIdAsync(id);
+            return mapper.Map<PersonaDto>(cliente);
         }
+
+
+         [HttpPost]
+         [ProducesResponseType(StatusCodes.Status201Created)]
+         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         public async Task<ActionResult<Persona>> Post(PersonaDto PersonaDto)
+         {
+             var persona = mapper.Map<Persona>(PersonaDto);
+             unitofwork.Personas.Add(persona);
+             await unitofwork.SaveAsync();
+
+             if (persona == null){
+                 return BadRequest();
+             }
+             PersonaDto.Id = persona.Id;
+             return CreatedAtAction(nameof(Post), new {id = PersonaDto.Id}, PersonaDto); 
+          }
+
+
+
+    // [HttpPost]
+    //  [ProducesResponseType(StatusCodes.Status200OK)]
+    //  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //  public async Task<ActionResult<Persona>> Post(Persona persona)
+    //  {
+    //      unitofwork.Personas.Add(persona);
+    //      await unitofwork.SaveAsync();
+    //      if (persona == null){
+    //          return BadRequest();
+    //      }
+    //      return CreatedAtAction(nameof(Post), new { id = persona.Id }, persona);
+    //  }
+
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<ActionResult<PersonaDto>> Put(int id, [FromBody]PersonaDto PersonaDto){
+            if(PersonaDto == null)
+                return NotFound();
+
+            var Persona = this.mapper.Map<Persona>(PersonaDto);
+            unitofwork.Personas.Update(Persona);
+            await unitofwork.SaveAsync();
+            return PersonaDto;
+        }
+
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> Delete (int id){
+            var persona = await unitofwork.Personas.GetByIdAsync(id);
+            if(persona == null)
+                return NotFound();
+            
+            unitofwork.Personas.Remove(persona);
+            await unitofwork.SaveAsync();
+            return NoContent();    }
     }
 }

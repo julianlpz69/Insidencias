@@ -1,5 +1,8 @@
 
 
+using Aplicacion.UnitOfWork;
+using Dominio.Intefaces;
+
 namespace API.Extensions
 {
     public static class AplicationServiceExtension
@@ -13,6 +16,18 @@ namespace API.Extensions
                 .AllowAnyMethod()
                 .AllowAnyHeader());
         });
+
+
+        public static void AddAppServices(this IServiceCollection Services){
+
+            Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        }
+
+    public static void ConfigureRateliniting(this IServiceCollection services){
+
+        }
+
 
     }
 }
