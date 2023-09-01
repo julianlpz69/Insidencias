@@ -16,6 +16,8 @@ namespace Persistencia.Data.Configuration
             builder.Property(e => e.Apellido)
                 .HasMaxLength(50);
 
+            // builder.Property(e => e.IdCiudadFK)
+            //     .HasDefaultValue(null);
 
             builder.HasOne(p => p.Ciudad)
             .WithMany(p => p.Personas)

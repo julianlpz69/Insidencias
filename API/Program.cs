@@ -1,5 +1,6 @@
 using System.Reflection;
 using API.Extensions;
+using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
 using Persistencia.Data;
 
@@ -11,16 +12,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors();
 builder.Services.AddAppServices();
-builder.Services.ConfigureCors();
+builder.Services.ConfigureApiVersion();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
-
-builder.Services.AddDbContext<IncidenciasContext>(optionsBuilder =>
+builder.Services.ConfigureRatelimiting();
+builder.Services.AddDbContext<IncidenciasContext>(options =>
 {
     string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,12 +30,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseHttpsRedirection();
+app.UseIpRateLimiting();
+app.UseAuthorization();
 app.Run();

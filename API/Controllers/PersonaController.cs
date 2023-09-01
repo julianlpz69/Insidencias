@@ -11,10 +11,10 @@ namespace API.Controllers
         private IUnitOfWork unitofwork;
         private readonly IMapper mapper;
 
-        public PersonaController(IUnitOfWork unitOfWork, IMapper mapper)
+        public PersonaController(IUnitOfWork unitOfWork, IMapper Mapper)
         {
             this.unitofwork = unitOfWork;
-            this.mapper = mapper;
+            this.mapper = Mapper;
         }
 
         [HttpGet]
@@ -37,36 +37,36 @@ namespace API.Controllers
         }
 
 
-         [HttpPost]
-         [ProducesResponseType(StatusCodes.Status201Created)]
-         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-         public async Task<ActionResult<Persona>> Post(PersonaDto PersonaDto)
-         {
-             var persona = mapper.Map<Persona>(PersonaDto);
-             unitofwork.Personas.Add(persona);
-             await unitofwork.SaveAsync();
+          [HttpPost]
+          [ProducesResponseType(StatusCodes.Status201Created)]
+          [ProducesResponseType(StatusCodes.Status400BadRequest)]
+          public async Task<ActionResult<Persona>> Post([FromBody]PersonaDto personaDto)
+          {
+              var persona = mapper.Map<Persona>(personaDto);
+              unitofwork.Personas.Add(persona);
+              await unitofwork.SaveAsync();
 
-             if (persona == null){
-                 return BadRequest();
-             }
-             PersonaDto.Id = persona.Id;
-             return CreatedAtAction(nameof(Post), new {id = PersonaDto.Id}, PersonaDto); 
-          }
+              if (persona == null){
+                  return BadRequest();
+              }
+              personaDto.Id = persona.Id;
+              return CreatedAtAction(nameof(Post), new {id = personaDto.Id}, personaDto); 
+           }
 
 
 
-    // [HttpPost]
-    //  [ProducesResponseType(StatusCodes.Status200OK)]
-    //  [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //  public async Task<ActionResult<Persona>> Post(Persona persona)
-    //  {
-    //      unitofwork.Personas.Add(persona);
-    //      await unitofwork.SaveAsync();
-    //      if (persona == null){
-    //          return BadRequest();
-    //      }
-    //      return CreatedAtAction(nameof(Post), new { id = persona.Id }, persona);
-    //  }
+    //   [HttpPost]
+    //   [ProducesResponseType(StatusCodes.Status200OK)]
+    //   [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //   public async Task<ActionResult<Persona>> Post(Persona persona)
+    //   {
+    //       this.unitofwork.Personas.Add(persona);
+    //       await unitofwork.SaveAsync();
+    //       if (persona == null){
+    //           return BadRequest();
+    //       }
+    //       return CreatedAtAction(nameof(Post), new { id = persona.Id }, persona);
+    //   }
 
 
         [HttpPut("{id}")]
